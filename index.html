@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Ronins | Masterless Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00a8ff;
+            --secondary: #9c88ff;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #f5f6fa;
+            --gray: #2f3640;
+            --light-gray: #7f8fa6;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --glow: 0 0 20px rgba(0, 168, 255, 0.7);
+        }
+
+        .light-mode {
+            --dark: #f5f6fa;
+            --darker: #dcdde1;
+            --light: #121212;
+            --gray: #dfe6e9;
+            --light-gray: #636e72;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            transition: var(--transition);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeIn 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: var(--glow);
+        }
+
+        .theme-toggle i {
+            font-size: 1.5rem;
+            color: var(--light);
+        }
+
+        /* Header Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0 50px;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+            min-width: 300px;
+        }
+
+        .profile-img-container {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            position: relative;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease 0.1s forwards, float 6s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            box-shadow: var(--glow);
+            transition: var(--transition);
+            filter: brightness(1.05);
+        }
+
+        .light-mode .profile-img {
+            box-shadow: none;
+        }
+
+        .text-section {
+            width: 55%;
+            min-width: 300px;
+            animation: slideInRight 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00a8ff, #9c88ff, #fbc531, #e84118, #4cd137);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background-size: 300% 300%;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        .catchphrase {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            color: var(--light-gray);
+            font-weight: 300;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: var(--transition);
+            animation: fadeIn 0.8s ease 0.7s forwards;
+            opacity: 0;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .about-text {
+            line-height: 1.7;
+            font-size: 1.1rem;
+            color: var(--light-gray);
+            animation: fadeIn 0.8s ease 0.9s forwards;
+            opacity: 0;
+            max-width: 90%;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            animation: fadeIn 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #00a8ff, #9c88ff, #fbc531, #e84118, #4cd137);
+            background-size: 300% 300%;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        .skills-container {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .skill-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 0.8s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        .skill-circle:hover {
+            transform: scale(1.08);
+            box-shadow: var(--glow);
+        }
+
+        .skill-circle h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .skill-circle i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .skill-items-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .skill-item {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            background-color: var(--darker);
+            transition: var(--transition);
+            opacity: 0;
+            transform: scale(0);
+            box-shadow: var(--shadow);
+            pointer-events: none;
+        }
+
+        .skill-item.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.1);
+            box-shadow: var(--glow);
+        }
+
+        .skill-item i {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .skill-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            transform-origin: left center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+        }
+
+        .skill-line.active {
+            opacity: 1;
+        }
+
+        .common-skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            animation: fadeIn 0.8s ease 0.8s forwards;
+            opacity: 0;
+            margin-bottom: 50px;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 50px 0;
+        }
+
+        .team-container {
+            background: linear-gradient(45deg, #00a8ff, #9c88ff, #fbc531, #e84118, #4cd137);
+            background-size: 300% 300%;
+            animation: gradientShift 10s ease infinite;
+            padding: 4px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.5);
+        }
+
+        .team-content {
+            background-color: var(--darker);
+            border-radius: 18px;
+            padding: 40px;
+        }
+
+        .team-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--light);
+        }
+
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .member-color {
+            width: 20px;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--light-gray);
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 100px 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--gray);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeInUp 0.8s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.9s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+        }
+
+        .light-mode .project-card:hover {
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background-color: var(--darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: var(--light-gray);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tech-item {
+            padding: 5px 12px;
+            background-color: var(--darker);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--light-gray);
+        }
+
+        /* Collaboration Section */
+        .collab-section {
+            padding: 100px 0;
+            text-align: center;
+            background-color: var(--darker);
+            border-radius: 20px;
+            margin: 50px 0;
+            animation: fadeIn 0.8s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        .collab-text {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .collab-subtext {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+
+        .start-project-btn {
+            display: block;
+            margin: 0 auto;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #00a8ff, #9c88ff, #fbc531, #e84118, #4cd137);
+            background-size: 300% 300%;
+            animation: gradientShift 10s ease infinite;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.8s ease 1s forwards;
+            opacity: 0;
+        }
+
+        .start-project-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid var(--gray);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-social a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .copyright {
+            color: var(--light-gray);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from { 
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            .intro {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-section, .text-section {
+                width: 100%;
+            }
+            
+            .profile-img-container {
+                width: 220px;
+                height: 220px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .catchphrase {
+                font-size: 1.2rem;
+            }
+            
+            .about-text {
+                max-width: 100%;
+            }
+            
+            .skills-container {
+                gap: 40px;
+                min-height: 500px;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .skill-circle {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .skill-items-container {
+                position: relative;
+                height: auto;
+                min-height: 300px;
+                margin-top: 20px;
+            }
+            
+            .skill-item {
+                position: static;
+                margin: 10px;
+                opacity: 0;
+                transform: scale(0);
+            }
+            
+            .skill-item.active {
+                opacity: 1;
+                transform: scale(1);
+                position: static;
+            }
+            
+            .skill-line {
+                display: none;
+            }
+            
+            .common-skills {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-members {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .collab-section {
+                padding: 60px 0;
+            }
+            
+            .collab-text {
+                font-size: 2rem;
+            }
+            
+            .collab-subtext {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-img-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .catchphrase {
+                font-size: 1rem;
+            }
+            
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            
+            .skill-circle {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .skill-circle h3 {
+                font-size: 1.2rem;
+            }
+            
+            .skill-circle i {
+                font-size: 2rem;
+            }
+            
+            .start-project-btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun"></i>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="intro">
+                <div class="profile-section">
+                    <div class="profile-img-container">
+                        <!-- 
+                            TO CHANGE THE PROFILE IMAGE:
+                            Replace "team-profile.jpg" with your image filename
+                            Make sure your image is in the same folder as this HTML file
+                            Supported formats: JPG, PNG, WebP
+                        -->
+                        <img src="team-profile.jpg" alt="Code Ronins" class="profile-img" onerror="this.src='https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h1>Code Ronins</h1>
+                    <p class="catchphrase">Masterless Developers Building The Future</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                    </div>
+                    <p class="about-text">
+                        We are a team of masterless developers, constantly building and evolving without masters - true to our Ronin name. Each of us brings unique skills and perspectives, united by our passion for creating innovative digital solutions. We build not for glory, but for impact - crafting code that solves real problems and creates meaningful experiences.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="container">
+            <h2 class="section-title">Our Arsenal</h2>
+            <div class="skills-container">
+                <div class="skill-circle" id="frontendCircle">
+                    <i class="fas fa-code"></i>
+                    <h3>Frontend</h3>
+                </div>
+                <div class="skill-circle" id="backendCircle">
+                    <i class="fas fa-server"></i>
+                    <h3>Backend</h3>
+                </div>
+                <div class="skill-items-container" id="skillItemsContainer">
+                    <!-- Frontend Skills -->
+                    <div class="skill-item" id="skillJs">
+                        <i class="fab fa-js-square"></i>
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="skill-item" id="skillTs">
+                        <i class="fab fa-js-square"></i>
+                        <span>TypeScript</span>
+                    </div>
+                    <div class="skill-item" id="skillReact">
+                        <i class="fab fa-react"></i>
+                        <span>React</span>
+                    </div>
+                    <div class="skill-item" id="skillReactNative">
+                        <i class="fab fa-react"></i>
+                        <span>React Native</span>
+                    </div>
+                    <div class="skill-item" id="skillNode">
+                        <i class="fab fa-node-js"></i>
+                        <span>Node.js</span>
+                    </div>
+                    <div class="skill-item" id="skillHtml">
+                        <i class="fab fa-html5"></i>
+                        <span>HTML</span>
+                    </div>
+                    <div class="skill-item" id="skillCss">
+                        <i class="fab fa-css3-alt"></i>
+                        <span>CSS</span>
+                    </div>
+                    <div class="skill-item" id="skillTailwind">
+                        <i class="fas fa-wind"></i>
+                        <span>Tailwind CSS</span>
+                    </div>
+                    
+                    <!-- Backend Skills -->
+                    <div class="skill-item" id="skillPython">
+                        <i class="fab fa-python"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="skill-item" id="skillFlask">
+                        <i class="fas fa-flask"></i>
+                        <span>Flask</span>
+                    </div>
+                    <div class="skill-item" id="skillDjango">
+                        <i class="fab fa-python"></i>
+                        <span>Django</span>
+                    </div>
+                    <div class="skill-item" id="skillMongo">
+                        <i class="fas fa-database"></i>
+                        <span>MongoDB</span>
+                    </div>
+                    <div class="skill-item" id="skillPostgres">
+                        <i class="fas fa-database"></i>
+                        <span>PostgreSQL</span>
+                    </div>
+                    <div class="skill-item" id="skillExpress">
+                        <i class="fas fa-server"></i>
+                        <span>Express.js</span>
+                    </div>
+                    <div class="skill-item" id="skillRedis">
+                        <i class="fas fa-database"></i>
+                        <span>Redis</span>
+                    </div>
+                    <div class="skill-item" id="skillDocker">
+                        <i class="fab fa-docker"></i>
+                        <span>Docker</span>
+                    </div>
+                </div>
+            </div>
+            <h3 style="text-align: center; margin-bottom: 30px; animation: fadeIn 0.8s ease 0.7s forwards; opacity: 0;">Team Skills</h3>
+            <div class="common-skills">
+                <div class="skill-item" style="position: static; opacity: 1; transform: scale(1);">
+                    <i class="fas fa-search"></i>
+                    <span>Research</span>
+                </div>
+                <div class="skill-item" style="position: static; opacity: 1; transform: scale(1);">
+                    <i class="fas fa-language"></i>
+                    <span>Multilanguage</span>
+                </div>
+                <div class="skill-item" style="position: static; opacity: 1; transform: scale(1);">
+                    <i class="fas fa-presentation"></i>
+                    <span>Presentation</span>
+                </div>
+                <div class="skill-item" style="position: static; opacity: 1; transform: scale(1);">
+                    <i class="fas fa-flag"></i>
+                    <span>Leadership</span>
+                </div>
+                <div class="skill-item" style="position: static; opacity: 1; transform: scale(1);">
+                    <i class="fas fa-users"></i>
+                    <span>Collaboration</span>
+                </div>
+                <div class="skill-item" style="position: static; opacity: 1; transform: scale(1);">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Problem Solving</span>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="team-section">
+                <div class="team-container">
+                    <div class="team-content">
+                        <h2 class="team-title">We Are Ronins</h2>
+                        <div class="team-members">
+                            <div class="team-member">
+                                <div class="member-color" style="background-color: #00a8ff;"></div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Ellen</h3>
+                                    <p class="member-role">Team Leader & Lead Developer</p>
+                                </div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-color" style="background-color: #fbc531;"></div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Karmughilan</h3>
+                                    <p class="member-role">Researcher & Project Manager</p>
+                                </div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-color" style="background-color: #e84118;"></div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Shahana</h3>
+                                    <p class="member-role">Project Presenter & Frontend Developer</p>
+                                </div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-color" style="background-color: #4cd137;"></div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Nishanth</h3>
+                                    <p class="member-role">Full Stack Developer</p>
+                                </div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-color" style="background-color: #9c88ff;"></div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Soundarya</h3>
+                                    <p class="member-role">Backend Developer</p>
+                                </div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-color" style="background-color: #ffffff;"></div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Sri Vishnu</h3>
+                                    <p class="member-role">Frontend Developer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="container">
+            <h2 class="section-title">Our Creations</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">CIVI-Connect</h3>
+                        <p class="project-description">
+                            A revolutionary mobile application that bridges the gap between citizens and local government services. Enabling efficient communication, service requests, and real-time updates for community development.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-item">React Native</span>
+                            <span class="tech-item">Flask</span>
+                            <span class="tech-item">PostgreSQL</span>
+                            <span class="tech-item">Firebase</span>
+                            <span class="tech-item">REST API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaboration Section -->
+    <section class="collab-section">
+        <div class="container">
+            <h2 class="collab-text">Join Our Journey</h2>
+            <p class="collab-subtext">
+                Ready to build something extraordinary together? We're always looking for new challenges and opportunities to create impactful solutions. Let's combine our skills and vision to build the future.
+            </p>
+            <button class="start-project-btn" id="startProjectBtn">
+                Start a Project
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="copyright">&copy; 2025 Code Ronins. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        // Start Project Button
+        const startProjectBtn = document.getElementById('startProjectBtn');
+        startProjectBtn.addEventListener('click', () => {
+            window.location.href = 'mailto:contact@coderonins.com?subject=Project Collaboration&body=Hi Code Ronins, I\'d like to discuss a project with your team.';
+        });
+
+        // Skills Animation
+        const frontendCircle = document.getElementById('frontendCircle');
+        const backendCircle = document.getElementById('backendCircle');
+        const skillItemsContainer = document.getElementById('skillItemsContainer');
+        
+        // Define skill positions relative to circles
+        const frontendSkills = [
+            { id: 'skillJs', angle: 30, distance: 180 },
+            { id: 'skillTs', angle: 60, distance: 200 },
+            { id: 'skillReact', angle: 90, distance: 220 },
+            { id: 'skillReactNative', angle: 120, distance: 200 },
+            { id: 'skillNode', angle: 150, distance: 180 },
+            { id: 'skillHtml', angle: 210, distance: 180 },
+            { id: 'skillCss', angle: 240, distance: 200 },
+            { id: 'skillTailwind', angle: 300, distance: 200 }
+        ];
+        
+        const backendSkills = [
+            { id: 'skillPython', angle: 30, distance: 180 },
+            { id: 'skillFlask', angle: 60, distance: 200 },
+            { id: 'skillDjango', angle: 90, distance: 220 },
+            { id: 'skillMongo', angle: 120, distance: 200 },
+            { id: 'skillPostgres', angle: 150, distance: 180 },
+            { id: 'skillExpress', angle: 210, distance: 180 },
+            { id: 'skillRedis', angle: 240, distance: 200 },
+            { id: 'skillDocker', angle: 300, distance: 200 }
+        ];
+        
+        let activeSkills = [];
+        let lines = [];
+        
+        function positionSkills(circle, skills) {
+            const circleRect = circle.getBoundingClientRect();
+            const containerRect = skillItemsContainer.getBoundingClientRect();
+            
+            const circleCenterX = circleRect.left + circleRect.width/2 - containerRect.left;
+            const circleCenterY = circleRect.top + circleRect.height/2 - containerRect.top;
+            
+            skills.forEach(skill => {
+                const skillEl = document.getElementById(skill.id);
+                const angle = (skill.angle * Math.PI) / 180;
+                
+                const x = circleCenterX + Math.cos(angle) * skill.distance;
+                const y = circleCenterY + Math.sin(angle) * skill.distance;
+                
+                skillEl.style.left = `${x - skillEl.offsetWidth / 2}px`;
+                skillEl.style.top = `${y - skillEl.offsetHeight / 2}px`;
+                
+                // Create line from circle to skill
+                const line = document.createElement('div');
+                line.className = 'skill-line';
+                line.style.width = `${skill.distance}px`;
+                line.style.left = `${circleCenterX}px`;
+                line.style.top = `${circleCenterY}px`;
+                line.style.transform = `rotate(${skill.angle}deg)`;
+                
+                skillItemsContainer.appendChild(line);
+                lines.push(line);
+                
+                // Add to active skills
+                activeSkills.push(skillEl);
+            });
+        }
+        
+        function toggleSkills(circle, skills) {
+            if (activeSkills.length > 0) {
+                activeSkills.forEach(skill => {
+                    document.getElementById(skill.id).classList.remove('active');
+                });
+                activeSkills = [];
+                lines.forEach(line => line.remove());
+                lines = [];
+                return;
+            }
+
+            positionSkills(circle, skills);
+            activeSkills = skills;
+
+            skills.forEach(skill => {
+                const skillEl = document.getElementById(skill.id);
+                skillEl.classList.add('active');
+
+                // Draw lines
+                const line = document.createElement('div');
+                line.classList.add('skill-line');
+                skillItemsContainer.appendChild(line);
+
+                const circleRect = circle.getBoundingClientRect();
+                const containerRect = skillItemsContainer.getBoundingClientRect();
+                const skillRect = skillEl.getBoundingClientRect();
+
+                const x1 = circleRect.left + circleRect.width / 2 - containerRect.left;
+                const y1 = circleRect.top + circleRect.height / 2 - containerRect.top;
+                const x2 = skillRect.left + skillRect.width / 2 - containerRect.left;
+                const y2 = skillRect.top + skillRect.height / 2 - containerRect.top;
+
+                const length = Math.hypot(x2 - x1, y2 - y1);
+                const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+
+                line.style.width = `${length}px`;
+                line.style.left = `${x1}px`;
+                line.style.top = `${y1}px`;
+                line.style.transform = `rotate(${angle}deg)`;
+                line.classList.add('active');
+
+                lines.push(line);
+            });
+        }
+
+        frontendCircle.addEventListener('click', () => {
+            toggleSkills(frontendCircle, frontendSkills);
+        });
+
+        backendCircle.addEventListener('click', () => {
+            toggleSkills(backendCircle, backendSkills);
+        });
+
+        // Close skills when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!frontendCircle.contains(e.target) && !backendCircle.contains(e.target) && 
+                !skillItemsContainer.contains(e.target)) {
+                activeSkills.forEach(skill => {
+                    document.getElementById(skill.id).classList.remove('active');
+                });
+                activeSkills = [];
+                lines.forEach(line => line.remove());
+                lines = [];
+            }
+        });
+
+        // Dynamic glow color change
+        const colors = [
+            '0 0 20px rgba(0, 168, 255, 0.7)',    // Blue
+            '0 0 20px rgba(155, 136, 255, 0.7)',  // Purple
+            '0 0 20px rgba(251, 197, 49, 0.7)',   // Yellow
+            '0 0 20px rgba(232, 65, 24, 0.7)',    // Pink/Red
+            '0 0 20px rgba(76, 209, 55, 0.7)'     // Green
+        ];
+
+        let currentColorIndex = 0;
+        
+        function changeGlowColor() {
+            document.documentElement.style.setProperty('--glow', colors[currentColorIndex]);
+            currentColorIndex = (currentColorIndex + 1) % colors.length;
+        }
+
+        // Change glow color every 10 seconds
+        setInterval(changeGlowColor, 10000);
+    </script>
+</body>
+</html>
