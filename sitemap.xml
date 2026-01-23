@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
   <url>
     <loc>https://coderonins.vercel.app</loc>
     <lastmod>2025-01-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
   <url>
-    <loc>https://promptbud.vercel.app</loc>
+    <loc>https://coderonins.vercel.app/#creations</loc>
     <lastmod>2025-01-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://coderonins.vercel.app/promptbud-logo.png</image:loc>
-      <image:caption>PromptBud - AI Prompt Sharing Platform by Code Ronins</image:caption>
-      <image:title>PromptBud - Independent AI Platform</image:title>
-    </image:image>
   </url>
-  <!-- ... rest of URLs ... -->
+  
+  <url>
+    <loc>https://coderonins.vercel.app/#team</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://coderonins.vercel.app/#skills</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://coderonins.vercel.app/#philosophy</loc>
+    <lastmod>2025-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
 </urlset>
