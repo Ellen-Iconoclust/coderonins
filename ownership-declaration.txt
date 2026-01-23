@@ -1,12 +1,12 @@
 # CODE RONINS - OWNERSHIP DECLARATION
-# Date: January 2025
+# Date: January 2026
 
 ## PROJECT: PROMPTBUD
 - Full Name: PromptBud AI Prompt Sharing Platform
 - Type: Web Application
 - URL: https://promptbud.vercel.app
 - Created By: Code Ronins Development Team
-- Creation Date: 2024
+- Creation Date: 06/12/2025
 - Status: Active and Maintained
 
 ## OWNERSHIP STATEMENT:
